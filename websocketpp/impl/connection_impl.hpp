@@ -1365,6 +1365,13 @@ void connection<config>::handle_read_http_response(lib::error_code const & ec,
 {
     m_alog.write(log::alevel::devel,"handle_read_http_response");
 
+    {
+      scoped_lock_type lock(m_connection_state_lock);
+      if (m_state == session::state::closed) {
+        return;
+      }
+    }
+
     this->atomic_state_check(
         istate::READ_HTTP_RESPONSE,
         "handle_read_http_response must be called from READ_HTTP_RESPONSE state"
