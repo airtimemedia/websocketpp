@@ -405,7 +405,7 @@ public:
         m_acceptor->open(ep.protocol(),bec);
         if (!bec) {
 // TODO(Art): temp
-m_elog->write(log::elevel::rerror, "### WebsocketPP.asio.endpoint.listen opened socked on FD " + std::to_string(m_acceptor->socket()));
+m_elog->write(log::elevel::warn, "### WebsocketPP.asio.endpoint.listen opened socked on FD " + std::to_string(m_acceptor->socket()));
             m_acceptor->set_option(lib::asio::socket_base::reuse_address(m_reuse_addr),bec);
         }
         if (!bec) {
@@ -416,7 +416,7 @@ m_elog->write(log::elevel::rerror, "### WebsocketPP.asio.endpoint.listen opened 
         }
         if (bec) {
 // TODO(Art): temp
-m_elog->write(log::elevel::rerror, "### WebsocketPP.asio.endpoint.listen encountered error on FD " + std::to_string(m_acceptor->socket())
+m_elog->write(log::elevel::warn, "### WebsocketPP.asio.endpoint.listen encountered error on FD " + std::to_string(m_acceptor->socket())
 + " " + (m_acceptor->is_open() ? "closing" : "not opened"));
             if (m_acceptor->is_open()) {
                 m_acceptor->close();
@@ -589,7 +589,7 @@ m_elog->write(log::elevel::rerror, "### WebsocketPP.asio.endpoint.listen encount
         }
 
 // TODO(Art): temp
-m_elog->write(log::elevel::rerror, "### Websocket.endpoint.stop_listening closing FD " + std::to_string(m_acceptor->socket()));
+m_elog->write(log::elevel::warn, "### Websocket.endpoint.stop_listening closing FD " + std::to_string(m_acceptor->socket()));
         m_acceptor->close();
         m_state = READY;
         ec = lib::error_code();
