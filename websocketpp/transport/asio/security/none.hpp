@@ -169,7 +169,7 @@ protected:
         }
 
         m_socket = lib::make_shared<lib::asio::ip::tcp::socket>(
-            lib::ref(*service));
+            *service);  // airtime - TEC-1017
 
         m_state = READY;
 
